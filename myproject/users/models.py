@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.db.models import ImageField
+from taggit.models import Tag
+from taggit.managers import TaggableManager
 
 
 class User(AbstractUser):
@@ -47,6 +49,7 @@ class Messages(models.Model):
 
 
 class Equipment(models.Model):
+    tags = TaggableManager(verbose_name='теги', blank=True)
     title = models.CharField(max_length=200, unique=True, verbose_name='название')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     place = models.CharField(max_length=200, verbose_name='место утсановки')
