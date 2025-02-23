@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Site{% endblock %}</title>
+</head>
+<body>
+    <header>
+        {% if user.is_authenticated %}
+            <p>Добро пожаловать, {{ user.username }}!
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                <button type="submit">logout</button>
+            </form></p>
+        {% else %}
+            <p><a href="{% url 'login' %}">Войти</a></p>
+        {% endif %}
+    </header>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+
