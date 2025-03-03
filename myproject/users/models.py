@@ -52,7 +52,7 @@ class Equipment(models.Model):
     tags = TaggableManager(verbose_name='теги', blank=True)
     title = models.CharField(max_length=200, unique=True, verbose_name='название')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
-    place = models.CharField(max_length=200, verbose_name='место утсановки')
+    place = models.CharField(max_length=200, verbose_name='место установки')
     characteristic = models.TextField(blank=True, verbose_name='характеристика')
     cat = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, related_name='category', verbose_name='категория')
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", default=None, blank=True, null=True, verbose_name='Фото')

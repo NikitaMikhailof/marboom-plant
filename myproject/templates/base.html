@@ -1,23 +1,63 @@
+{% load static %}
+{% load equipment_tags %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}My Site{% endblock %}</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{% static 'users/css/style.css'%}" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        {% if user.is_authenticated %}
-            <p>Добро пожаловать, {{ user.username }}!
+    <div id="wrapper">
+        <div id="header">
+            <span>Справочник  КТЦ ТЭЦ</span>
+            <p class="user">{{ user.last_name }} {{ user.first_name }} {{ user.third_name}} </p>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                <button type="submit">logout</button>
-            </form></p>
-        {% else %}
-            <p><a href="{% url 'login' %}">Войти</a></p>
-        {% endif %}
-    </header>
-
-    {% block content %}
-    {% endblock %}
+                <input type="image" class="img-form-logout" name="submit" src="{% static 'users/img/logout.png' %}"  alt="Submit"/>
+                </form>
+            <div class="search">
+                <form>
+                    <input type="text" placeholder="введите запрос">
+                    <button class="search-button" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div id="container">
+            <div id="sidebar">
+                <div class="dropdown">
+                    <button onclick="my_categories()" class="dropbtn">Категории</button>
+                    <div id="myDropdown" class="dropdown-content">
+                    {% get_categories as categories %}
+                    {% for cat in categories %}
+                      <a href="{% url 'show_category' cat.slug %}">{{ cat }}</a>
+                    {% endfor %}  
+                    </div>
+                </div><br><br>
+                <div class="tags">
+                    {% get_tags as tags %}
+                    {% for tag in tags %}
+                        <a href="{% url 'show_tag' tag.slug %}"># {{ tag }}</a><br>
+                    {% endfor %}  
+                </div>
+                <br><br>     
+            </div>
+            <div class="wrapper-content">
+                <div id="content" >
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                {% block pagination %}
+                {% endblock %}
+            </div>
+        </div>
+        <div id="footer">
+            footer
+        </div>
+    </div>
 </body>
+<script src="{% static 'users/js/script.js' %}"></script>
 </html>
 

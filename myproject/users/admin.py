@@ -1,18 +1,26 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Category, Messages, Equipment, Comments, Journal
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import Category, Messages, Equipment, Comments, Journal
+from django.contrib.auth import get_user_model
 from django.utils.safestring import mark_safe   
+from django import forms
 
 
 admin.site.site_header = 'Панель администрирования'
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = ['last_name', 'first_name', 'third_name',
-                        'job', 'department', 'username', 'password', 'email',
-                        ]
-    fields = ['first_name', 'last_name', 'third_name',
-                    'job', 'department', 'username', 'password', 'email',]
-    search_fields = ['job', 'first_name', 'last_name', 'email', 'username']
+
+
+class MyUserChangeForm(UserChangeForm):
+    class Meta(UserChangeForm.Meta):
+        model = get_user_model()
+
+class MyUserAdmin(UserAdmin):
+    form = MyUserChangeForm
+
+    fieldsets = UserAdmin.fieldsets + (
+            (None, {'fields': ('third_name', 'job', 'department',)}),
+    )
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -51,9 +59,10 @@ class JournalAdmin(admin.ModelAdmin):
     search_fields = ['user', 'equipment']
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(get_user_model(), MyUserAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Messages, MessagesAdmin)
 admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(Comments, CommentsAdmin)
 admin.site.register(Journal, JournalAdmin)
+
