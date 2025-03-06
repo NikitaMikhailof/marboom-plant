@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import render, get_object_or_404
-from .models import get_user_model, Equipment, Category, Tag
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import ListView
+from django.shortcuts import render
+from .models import  Equipment, Journal
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import SearchForm
 
 
 class PostListView(LoginRequiredMixin,ListView):
@@ -38,3 +37,32 @@ class TagListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Equipment.objects.filter(tags__slug=self.kwargs['tag_slug'])
 
+
+class ShowDetailEquipment(LoginRequiredMixin, DetailView):
+    model = Equipment
+    slug_url_kwarg = 'post_slug'
+    template_name = 'users/detail.html'
+    context_object_name = 'equipment'
+
+    def get_queryset(self):
+        return Equipment.objects.prefetch_related('journals').filter(slug=self.kwargs['post_slug'])
+    
+    
+
+
+def search_equipment(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Equipment.objects.filter(title__icontains=query)
+            total = results.count()
+    else:
+        form = SearchForm()       
+         
+    return render(request,
+                'users/search_result.html',
+                {'form': form,
+                'posts': results,
+                'total': total
+                })        

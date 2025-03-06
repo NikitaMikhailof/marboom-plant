@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+    <div class="main-info">
+        <div class="foto">
+            <img id="size" src="{{equipment.photo.url }}">
+        </div>
+        <div class="information">
+            <p>Название : {{ equipment.title }}</p>
+            <p>Место установки : {{ equipment.place }}</p>
+            <p>Характеристика : {{ equipment.characteristic }}</p>
+            <p>Категория : <span style="color: rgb(172, 38, 38);">{{ equipment.cat }}</span></p>
+              
+        </div>
+    </div>
+    <div class="other-info">
+        <div class="journal">
+            <p>Записать в журнал</p><br>
+            <p>{{ equipment.journals }}</p>
+        </div>
+        <div class="comments"></div>
+    </div>
+
+
+{% endblock content %}
+
+

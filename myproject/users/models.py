@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
-from django.db.models import ImageField
 from taggit.models import Tag
 from taggit.managers import TaggableManager
+from django.urls import reverse
 
 
 class User(AbstractUser):
@@ -63,8 +63,14 @@ class Equipment(models.Model):
     class Meta:
         verbose_name = 'Оборудование'
         verbose_name_plural = 'Оборудование'
-        ordering = ['slug']        
+        ordering = ['slug']     
+        indexes = [
+            models.Index(fields=['title', 'slug'])
+        ]   
 
+    def get_absolute_url(self):
+        return reverse('equipment', kwargs={'post_slug':self.slug})
+    
 
 class Comments(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='comments', verbose_name='пользователь')
@@ -83,7 +89,7 @@ class Comments(models.Model):
 
 class Journal(models.Model):
     equipment = models.ForeignKey('Equipment', on_delete=models.CASCADE, related_name='journals', verbose_name='оборудование')
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='journal', verbose_name='сотрудник')
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='users', verbose_name='сотрудник')
     body = models.TextField(blank=True, verbose_name='описание ремонта')
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
 

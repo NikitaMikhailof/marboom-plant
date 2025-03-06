@@ -3,10 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" href="{% static 'users/css/style.css'%}" rel="stylesheet" />
+    <!-- Include jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -18,10 +21,19 @@
                 <input type="image" class="img-form-logout" name="submit" src="{% static 'users/img/logout.png' %}"  alt="Submit"/>
                 </form>
             <div class="search">
-                <form>
-                    <input type="text" placeholder="введите запрос">
+                <form action="{% url 'search_equipment' %}" method="POST">
+                    {% csrf_token %}
+                    <input id="search" name="query" type="text" placeholder="введите запрос">
                     <button class="search-button" type="submit">Поиск</button>
                 </form>
+                <script>
+                    $(function() {
+                        $("#search").autocomplete({
+                            source: "{% url 'equipment-autocomplete' %}",
+                            minLength: 2, // Minimum characters before triggering autocomplete
+                        });
+                    });
+                </script>
             </div>
         </div>
         <br>
