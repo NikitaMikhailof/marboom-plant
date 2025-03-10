@@ -9,3 +9,4 @@ class EquipmentAutocomplete(View):
         equipments = Equipment.objects.filter(title__icontains=query)[:10]
         results = [equipment.title for equipment in equipments]
         return JsonResponse(results, safe=False)
+    

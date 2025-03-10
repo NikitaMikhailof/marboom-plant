@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'taggit',
     'widget_tweaks',
+    'django_jinja',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'myproject.urls'
 
 TEMPLATES = [
+
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [

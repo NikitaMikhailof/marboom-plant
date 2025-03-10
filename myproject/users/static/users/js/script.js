@@ -2,7 +2,8 @@
 переключение между скрытием и отображением раскрывающегося содержимого */
 function my_categories() {
     document.getElementById("myDropdown").classList.toggle("show");
-  }
+}
+
   
   // Закройте выпадающее меню, если пользователь щелкает за его пределами
   window.onclick = function(event) {
@@ -16,6 +17,6 @@ function my_categories() {
         }
       }
     }
-  }
+}
 
 

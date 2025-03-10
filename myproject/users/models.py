@@ -32,6 +32,9 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
         ordering = ['slug']
 
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'category_slug':self.slug})    
+
 
 class Messages(models.Model):
     body = models.TextField(blank=True, verbose_name='сообщение')
@@ -79,7 +82,7 @@ class Comments(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
 
     def __str__(self):
-        return f'{self.body}'
+        return f'{self.body} {self.time_create}'
 
     class Meta:
         verbose_name = 'Комментарии'

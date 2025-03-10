@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{%  load static %}
 
 {% block content %}
 
@@ -12,16 +12,63 @@
             <p>Название : {{ equipment.title }}</p>
             <p>Место установки : {{ equipment.place }}</p>
             <p>Характеристика : {{ equipment.characteristic }}</p>
-            <p>Категория : <span style="color: rgb(172, 38, 38);">{{ equipment.cat }}</span></p>
-              
+            <p>Категория : <a style="color: rgb(172, 38, 38);" href="{% url 'show_category' equipment.cat.slug %}">{{ equipment.cat }}</a></p>
         </div>
+        </form>
     </div>
     <div class="other-info">
         <div class="journal">
-            <p>Записать в журнал</p><br>
-            <p>{{ equipment.journals }}</p>
+            {% if journals.count > 0 %}
+            <p >Всего ремонтов : {{ journals.count }}</p>
+            <details>
+                <summary>Последние ремонты</summary>
+                <div style="width: 300px; height: auto; border: 3px solid rgb(124, 105, 97); margin-left: 10px;">
+                <ul>
+                    {% for journal in journals|slice:"3" %}
+                    <li style="width: 250px;">{{ journal.body | truncatewords:2 }}<br>({{ journal.time_create }})</li><br>
+                    {% endfor %}
+                </ul>
+                </div>
+            </details><br>
+            {% else %}
+            <p>Не был в ремонте</p>
+            {% endif %}
+            {% if comments.count > 0 %}
+            <p >Всего комментариев : {{ comments.count }}</p>
+            <details>
+                <summary>Последние комментарии</summary>
+                <div style="width: 300px; height: auto; border: 3px solid rgb(124, 105, 97); margin-left: 10px;">
+                <ul>
+                    {% for comment in comments|slice:"3" %}
+                    <li style="width: 250px;">{{ comment.body | truncatewords:2 }}<br>({{ comment.time_create }})</li><br>
+                    {% endfor %}
+                </ul>
+                </div>
+            </details>
+            {% else %}
+            <p>Нет комментариев</p>
+            {% endif %}
         </div>
-        <div class="comments"></div>
+        <div class="comments">
+            <div class="form_journal">
+                <form action="{% url 'journal_record' %}" method="POST">
+                    {% csrf_token %}
+                    <input id="user" name="user" type="hidden" value="{{ request.user.pk }}"/>
+                    <input id="equipment" name="equipment" type="hidden" value="{{ equipment.pk }}"/>
+                    <textarea id="body" name="body" type="text" placeholder="Введите описание ремонта"></textarea>
+                    <button  type="submit">Записать в журнал</button>
+                </form>
+            </div><br>    
+            <div class="form_journal">
+                <form action="{% url 'comment_record' %}" method="POST">
+                    {% csrf_token %}
+                    <input id="user" name="user" type="hidden" value="{{ request.user.pk }}"/>
+                    <input id="equipment" name="equipment" type="hidden" value="{{ equipment.pk }}"/>
+                    <textarea id="body" name="body" type="text" placeholder="Введите окомментарий"></textarea>
+                    <button  type="submit">Оставить комментарий</button>
+                </form>
+            </div>
+        </div>
     </div>
 
 

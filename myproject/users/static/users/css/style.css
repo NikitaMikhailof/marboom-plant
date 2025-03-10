@@ -1,3 +1,5 @@
+
+
 .container{
     position: fixed;
     top: 50%;
@@ -63,7 +65,6 @@ input[type="submit"]:hover {
 }
 
 
-
 #wrapper {
 	width: 100%;
 	margin: 30px auto;  
@@ -77,7 +78,9 @@ input[type="submit"]:hover {
 }
 
 #header span {
-    font-family:'Times New Roman', Times, serif;
+    font-family: "Lato", sans-serif;
+    font-weight: 100;
+    font-style: normal;
     font-size: 20px;
     font-weight: bold;
     color: rgb(82, 9, 9);
@@ -165,16 +168,18 @@ input[type="submit"]:hover {
     margin-top: -23px;
     margin-left: 450px;
     width: 400px;
+    text-decoration: none;
 }
 
 .search-button {
-    width: 70px;
+    width: 80px;
     height: 30px;
     background-color: rgb(121, 21, 26);
     color: white;
     margin: 3px;
     font-family: 'Times New Roman', Times, serif;
     text-align: center;
+    text-decoration: none;
 }
 
 
@@ -371,13 +376,11 @@ input[type="submit"]:hover {
 .other-info .journal {
     width: 45%; 
     height: 100%; 
-    background-color: #aa9e9e;
 }
 
 .other-info .comments {
     width: 53%; 
     height: 100%; 
-    background-color: #aa9e9e;
 }
 
 
@@ -390,6 +393,65 @@ input[type="submit"]:hover {
 
 .main-info .information p {
     font-family: Century;
-    font-size: large;
-    font-weight: 700;
+    font-size: 17px;
+    font-weight: 500;
 }
+
+.other-info .journal details summary {
+    margin: 10px;
+    width: 70%;
+    height: 40px;
+    text-align: center;
+    line-height: 29px;
+    color: white;
+    background-color: rgb(117, 27, 27);
+}
+
+.other-info .journal p {
+    margin: 10px;
+    width: 70%;
+    height: 40px;
+    text-align: center;
+    line-height: 29px;
+    color: white;
+    background-color: rgb(68, 69, 78);
+}
+
+.other-info .journal li {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.form_journal {
+    margin: 10px;
+    width: 80%;
+    height: 40%;
+    background-color: rgb(180, 174, 174);
+    border-radius: 10px;
+}
+
+.form_journal form {
+    padding: 20px;
+}
+
+
+.form_journal form textarea {
+    padding: 20px;
+    width: 90%;
+    height: auto;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.form_journal form  button {
+    float: right;
+    background-color: #831111;
+    color: white;
+    border: none;
+    padding: 3px;
+    
+}
+
+

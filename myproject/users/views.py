@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .models import  Equipment, Journal
+from .models import  Equipment, Journal, Comments
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import SearchForm
+from .forms import SearchForm, JournalForm, CommentForm
 
 
 class PostListView(LoginRequiredMixin,ListView):
@@ -44,10 +44,41 @@ class ShowDetailEquipment(LoginRequiredMixin, DetailView):
     template_name = 'users/detail.html'
     context_object_name = 'equipment'
 
-    def get_queryset(self):
-        return Equipment.objects.prefetch_related('journals').filter(slug=self.kwargs['post_slug'])
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['journals'] = Journal.objects.prefetch_related('equipment').filter(equipment__slug=self.kwargs['post_slug'])
+        context['comments'] = Comments.objects.prefetch_related('equipment').filter(equipment__slug=self.kwargs['post_slug'])
+        return context
     
-    
+
+def journal_record(request):
+    if request.method == 'POST':
+        form = JournalForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = JournalForm()       
+         
+    return render(request,
+                'users/record_journal.html',
+                {'form': form,
+                 'title': 'Запись успешна сохранена в журнале'
+                })   
+
+
+def comment_record(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = CommentForm()       
+         
+    return render(request,
+                'users/record_successfully.html',
+                {'form': form,
+                 'title': 'Комментарий успешно сохранен'
+                })   
 
 
 def search_equipment(request):
@@ -66,3 +97,5 @@ def search_equipment(request):
                 'posts': results,
                 'total': total
                 })        
+
+
