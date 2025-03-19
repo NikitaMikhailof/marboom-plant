@@ -17,8 +17,6 @@ class SearchForm(forms.Form):
         })
             
 
-
-    
 class JournalForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

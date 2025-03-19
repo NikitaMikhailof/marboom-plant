@@ -103,3 +103,4 @@ class Journal(models.Model):
         verbose_name = 'Журнал ТО/ТР'
         verbose_name_plural = 'Журнал ТО/ТР'
         ordering = ['-time_create'] 
+      

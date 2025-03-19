@@ -3,6 +3,7 @@ from .models import  Equipment, Journal, Comments
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import SearchForm, JournalForm, CommentForm
+from django.views.generic.edit import FormMixin
 
 
 class PostListView(LoginRequiredMixin,ListView):
@@ -27,7 +28,6 @@ class CategoryListView(LoginRequiredMixin, ListView):
         return Equipment.objects.filter(cat__slug=self.kwargs['cat_slug'])
     
 
-
 class TagListView(LoginRequiredMixin, ListView):
     model = Equipment
     paginate_by = 6
@@ -36,6 +36,26 @@ class TagListView(LoginRequiredMixin, ListView):
     
     def get_queryset(self):
         return Equipment.objects.filter(tags__slug=self.kwargs['tag_slug'])
+
+
+class JournalListView(LoginRequiredMixin, ListView):
+    model = Journal
+    paginate_by = 10 
+    template_name = 'users/journal.html'
+    context_object_name = 'records'
+
+    def get_queryset(self):
+        return Journal.objects.prefetch_related('equipment').all()
+
+
+class CommentListView(LoginRequiredMixin, ListView):
+    model = Comments
+    paginate_by = 10 
+    template_name = 'users/comment.html'
+    context_object_name = 'records'
+
+    def get_queryset(self):
+        return Comments.objects.prefetch_related('equipment').all()
 
 
 class ShowDetailEquipment(LoginRequiredMixin, DetailView):
@@ -51,6 +71,30 @@ class ShowDetailEquipment(LoginRequiredMixin, DetailView):
         return context
     
 
+class JournalRecordsEquipment(LoginRequiredMixin, ListView):
+    model = Equipment
+    paginate_by = 10
+    slug_url_kwarg = 'equipment_slug'
+    template_name = 'users/journal_equipment_records.html'
+    context_object_name = 'records'
+    
+    def get_queryset(self):
+        records = Journal.objects.prefetch_related('equipment').filter(equipment__slug=self.kwargs['equipment_slug'])
+        return records
+
+
+class CommentRecordsEquipment(LoginRequiredMixin, ListView):
+    model = Equipment
+    paginate_by = 10
+    slug_url_kwarg = 'equipment_slug'
+    template_name = 'users/comment_equipment_records.html'
+    context_object_name = 'records'
+    
+    def get_queryset(self):
+        records = Comments.objects.prefetch_related('equipment').filter(equipment__slug=self.kwargs['comment_slug'])
+        return records
+
+
 def journal_record(request):
     if request.method == 'POST':
         form = JournalForm(request.POST)
@@ -60,7 +104,7 @@ def journal_record(request):
         form = JournalForm()       
          
     return render(request,
-                'users/record_journal.html',
+                'users/record_successfully.html',
                 {'form': form,
                  'title': 'Запись успешна сохранена в журнале'
                 })   
@@ -99,3 +143,37 @@ def search_equipment(request):
                 })        
 
 
+def search_journal(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Journal.objects.filter(equipment__title__icontains=query)
+            total = results.count()
+    else:
+        form = SearchForm()       
+         
+    return render(request,
+                'users/journal_search.html',
+                {'form': form,
+                'posts': results,
+                'total': total
+                })  
+
+
+def search_journal(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Comments.objects.filter(equipment__title__icontains=query)
+            total = results.count()
+    else:
+        form = SearchForm()       
+         
+    return render(request,
+                'users/comment_search.html',
+                {'form': form,
+                'posts': results,
+                'total': total
+                })  

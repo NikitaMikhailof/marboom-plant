@@ -10,3 +10,5 @@ class EquipmentAutocomplete(View):
         results = [equipment.title for equipment in equipments]
         return JsonResponse(results, safe=False)
     
+   
+    

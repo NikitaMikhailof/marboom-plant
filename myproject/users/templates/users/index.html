@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block search %}    
+{% include "users/includes/search_equipment.html" %}    
+{% endblock %}
+
 {% block content %}
 <p class="total_count">Всего позиций: {{ total }} шт</p>
 {% for post in posts %}
