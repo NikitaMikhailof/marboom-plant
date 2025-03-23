@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.views import View
-from .models import Equipment
+from .models import Equipment, User
 
 
 class EquipmentAutocomplete(View):
@@ -11,4 +11,9 @@ class EquipmentAutocomplete(View):
         return JsonResponse(results, safe=False)
     
    
-    
+class ProfileAutocomplete(View):
+    def get(self, request):
+        query =  request.GET.get('term', '')   
+        users = User.objects.filter(last_name__icontains=query)[:10]
+        results = [user.last_name for user in users]
+        return JsonResponse(results, safe=False)

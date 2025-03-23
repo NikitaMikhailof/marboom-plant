@@ -1,14 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserChangeForm
 from .models import Category, Messages, Equipment, Comments, Journal
 from django.contrib.auth import get_user_model
 from django.utils.safestring import mark_safe   
-from django import forms
+
 
 
 admin.site.site_header = 'Панель администрирования'
-
 
 
 class MyUserChangeForm(UserChangeForm):
@@ -19,7 +18,7 @@ class MyUserAdmin(UserAdmin):
     form = MyUserChangeForm
 
     fieldsets = UserAdmin.fieldsets + (
-            (None, {'fields': ('third_name', 'job', 'department',)}),
+            (None, {'fields': ('third_name', 'job', 'department', 'telephone', 'photo')}),
     )
 
 

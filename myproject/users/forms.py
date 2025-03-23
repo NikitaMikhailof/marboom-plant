@@ -1,6 +1,5 @@
 from django import forms
-from django.forms import ModelForm
-from .models import Journal, Comments
+from .models import Journal, Comments, Messages
 
 
 class SearchForm(forms.Form):
@@ -43,4 +42,17 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comments
         fields = ['user', 'equipment', 'body']    
-        
+
+
+class SendMessage(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'id': f'{field}',
+                'name': f'{field}',
+        })
+            
+    class Meta:
+        model = Messages
+        fields = ['body', 'owner', 'sender']          

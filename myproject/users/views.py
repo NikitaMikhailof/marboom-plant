@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import  Equipment, Journal, Comments
+from .models import  Equipment, Journal, Comments, User, Messages
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import SearchForm, JournalForm, CommentForm
-from django.views.generic.edit import FormMixin
+from .forms import SearchForm, JournalForm, CommentForm, SendMessage
+from django.shortcuts import get_object_or_404
 
 
 class PostListView(LoginRequiredMixin,ListView):
@@ -16,6 +16,44 @@ class PostListView(LoginRequiredMixin,ListView):
     extra_context = {
         'total': total
     }
+
+
+
+class ProfileListView(LoginRequiredMixin, ListView):
+    model = User
+    paginate_by = 2
+    template_name = 'users/list_profiles.html'
+    context_object_name = 'users'
+    
+    def get_queryset(self):
+        return User.objects.all()
+
+
+def profile(request):
+    return render(request,
+                'users/profile.html',
+                {'title': 'Кабинет пользователя'})  
+
+
+def detail_profile(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    return render(request,
+                'users/profile_detail.html',
+                {'user': user})   
+
+
+def profile_messages_input(request, pk):
+    messages = Messages.objects.filter(owner=pk)
+    return render(request,
+                'users/profile_messages_input.html',
+                {'messages': messages})   
+
+
+def profile_messages_output(request, pk):
+    messages = Messages.objects.filter(sender=pk)
+    return render(request,
+                'users/profile_messages_output.html',
+                {'messages': messages})  
 
 
 class CategoryListView(LoginRequiredMixin, ListView):
@@ -95,6 +133,20 @@ class CommentRecordsEquipment(LoginRequiredMixin, ListView):
         return records
 
 
+def profile_comments(request, pk):
+    comments = Comments.objects.filter(user=pk)
+    return render(request,
+                'users/profile_comments.html',
+                {'comments': comments}) 
+
+
+def profile_journals(request, pk):
+    journals = Journal.objects.filter(user=pk)
+    return render(request,
+                'users/profile_journal.html',
+                {'journals': journals}) 
+
+
 def journal_record(request):
     if request.method == 'POST':
         form = JournalForm(request.POST)
@@ -161,7 +213,7 @@ def search_journal(request):
                 })  
 
 
-def search_journal(request):
+def search_comment(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
@@ -177,3 +229,36 @@ def search_journal(request):
                 'posts': results,
                 'total': total
                 })  
+
+
+def search_profile(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = User.objects.filter(last_name__icontains=query)
+            total = results.count()
+    else:
+        form = SearchForm()       
+         
+    return render(request,
+                'users/profile_search.html',
+                {'form': form,
+                'posts': results,
+                'total': total
+                }) 
+
+
+def send_message(request):
+    if request.method == 'POST':
+        form = SendMessage(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = SendMessage()       
+    return render(request,
+                'users/message_successfully.html',
+                {'form': form,
+                 'title': 'Сообщение успешно отправлено'
+                })   
+ 

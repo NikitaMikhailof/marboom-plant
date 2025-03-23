@@ -15,8 +15,8 @@
 <body>
     <div id="wrapper">
         <div id="header">
-            <span><a href="{% url 'home' %}" style="text-decoration: none; color: rgb(129, 24, 24);">Справочник  КТЦ ТЭЦ</a></span>
-            <p class="user">{{ user.last_name }} {{ user.first_name }} {{ user.third_name}} </p>
+            <span><a href="{% url 'home' %}" style="text-decoration: none; color: rgb(248, 241, 241);">Справочник  КТЦ ТЭЦ</a></span>
+            <a class="user" href="{% url 'profile' %}">{{ user.last_name }} {{ user.first_name }} {{ user.third_name}}</a>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                 <input type="image" class="img-form-logout" name="submit" src="{% static 'users/img/logout.png' %}"  alt="Submit"/>
@@ -42,7 +42,13 @@
                         <a href="{% url 'show_tag' tag.slug %}"># {{ tag }}</a><br>
                     {% endfor %}  
                 </div>
-                <br><br>     
+                <br><br> 
+                <div class="journal_button">
+                    <a href="{% url 'journal' %}">Журнал</a>
+                </div><br>
+                <div class="journal_button">
+                    <a href="{% url 'comment' %}">Комментарии</a>
+                </div>     
             </div>
             <div class="wrapper-content">
                 <div id="content" >
@@ -54,7 +60,6 @@
             </div>
         </div>
         <div id="footer">
-            footer
         </div>
     </div>
 </body>

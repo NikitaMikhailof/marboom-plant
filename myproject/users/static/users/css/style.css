@@ -1,5 +1,3 @@
-
-
 .container{
     position: fixed;
     top: 50%;
@@ -46,7 +44,6 @@ input[type="password"] {
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
     border: none;
-    
 }
 
 input[type="submit"] {
@@ -73,8 +70,8 @@ input[type="submit"]:hover {
 #header {
 	height: 35px;
 	padding: 20px;
-	background-color: rgb(197, 189, 189);
-    border: 1px black;
+	background-color: rgb(116, 32, 32);
+    border: none;
 }
 
 #header span {
@@ -83,7 +80,7 @@ input[type="submit"]:hover {
     font-style: normal;
     font-size: 20px;
     font-weight: bold;
-    color: rgb(82, 9, 9);
+    color: rgb(247, 240, 240);
 }
 
 #container {
@@ -160,8 +157,8 @@ input[type="submit"]:hover {
 #footer {
 	height: 10%;
 	padding: 20px;
-	background-color: rgb(197, 189, 189);
-    border: 5px black;
+	background-color: rgb(116, 32, 32);
+    border: none;
 }
 
 .search {
@@ -174,12 +171,13 @@ input[type="submit"]:hover {
 .search-button {
     width: 80px;
     height: 30px;
-    background-color: rgb(121, 21, 26);
+    background-color: rgb(173, 80, 85);
     color: white;
     margin: 3px;
     font-family: 'Times New Roman', Times, serif;
     text-align: center;
     text-decoration: none;
+    border: none;
 }
 
 
@@ -195,8 +193,9 @@ input[type="submit"]:hover {
     float: right;
     font-family: 'Times New Roman', Times, serif;
     font-size: large;
-    color: rgb(97, 14, 18);
+    color: rgb(247, 237, 237);
     margin: 5px;
+    text-decoration: none;
 }
 
 
@@ -257,7 +256,7 @@ input[type="submit"]:hover {
 .button-view-post {
     display: block;
     border-radius: 5px;
-    background: rgb(121, 21, 26);
+    background: rgb(54, 58, 56);
     color: #fff;
     padding: 8px;
     margin-bottom: 10px;
@@ -493,15 +492,17 @@ td {
     height: auto;
     text-align: left;
 	padding: 10px;
-	border: 3px solid rgb(63, 60, 60);
+	border: 3px solid #4b534e;
+    word-break: break-all;
 }
 
 th {
   text-align: center;
   padding: 10px;
-  border: 3px solid rgb(5, 5, 5);
+  border: 3px solid #313532;
   color: white;
-  background-color: rgb(75, 71, 71);
+  background-color: #313532;
+  word-break: break-all;
  }
 
  caption {
@@ -513,3 +514,157 @@ th {
     color: #610505;
     font-size: 18px;
  }
+
+.journal_button{
+    margin-left: 10px;
+    padding: 5px;
+    width: 85%;
+    height: 30px;
+    text-align: center;
+    background-color: #313532;
+}
+
+.journal_button a {
+    text-decoration: none;
+    font-size: 17px;
+    color: white;
+ }
+
+ .wrapper_profile {
+    display: flex;
+    width: 95%;
+    height: 55%;
+    margin: 10px;
+ }
+
+.profile_photo {
+    display: block;
+    margin: 10px;
+    width: 30%;
+    height: 80%;
+    border-radius: 20px;
+}
+
+.avatar {
+    width: 75%;
+    height: 75%;
+    margin: 30px;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgb(136, 127, 128);
+}
+
+.profile_info {
+    display: block;
+    top: 20px;
+    margin: 10px;
+    width: 50%;
+    height: 80%;
+    background-color: #d1c8c8;
+    border-radius: 20px;
+    text-align: left;
+    font-size: large;
+    padding-left: 50px;
+}
+
+.profile_info a {
+    width: 120px;
+    text-decoration: none;
+    padding: 5px;
+    color: white;
+    background-color: #413e3e;
+    border-radius: 5px;
+}
+
+
+fieldset {
+    max-width:400px;
+    padding:20px;
+    font-size: large;
+    border: 2px solid #8a3636;
+    border-radius: 10px;
+}
+
+#count_messages{
+    float: right;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #2f6e35;
+    border-radius: 20%;
+    color: white;
+}
+
+fieldset a {
+    text-decoration: none;
+    color: #363333;
+}
+
+legend {
+    background-color: #8a3636;
+    color: #fff;
+    padding: 3px 6px;
+    border-radius: 7px;
+}
+
+
+.profile_info_detail {
+    display: block;
+    top: 20px;
+    margin: 10px;
+    width: 50%;
+    height: 100%;
+    background-color: #d1c8c8;
+    border-radius: 20px;
+    text-align: left;
+    font-size: medium;
+    padding-left: 50px;
+}
+
+.message_form  textarea {
+    width: 400px;
+    height: 40px;
+    border: 1px solid rgb(70, 21, 21);
+    font-size: large;
+}
+
+.message_form  button {
+    width: 170px;
+    height: 40px;
+    margin: 10px;
+    background-color: #7e2323;
+    border: none;
+    color: white;
+    border-radius: 10px;
+}
+
+.messages_element {
+    background-color: #aeb8b1;
+    height: auto;
+    width: 60%;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.messages_element  #owner {
+    font-size: medium;
+    color: #1d1342;
+}
+
+.messages_element  #time {
+    float: right;
+    font-size: medium;
+}
+
+.messages_element  #body {
+    margin: 10px;
+    font-size: large;
+    font-weight: 700;
+    color: #610505;
+    word-break: break-all;
+}
+

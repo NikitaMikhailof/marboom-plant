@@ -21,10 +21,10 @@
             <p>Всего ремонтов : {{ journals.count }}</p>
             <details>
                 <summary>Последний ремонт</summary>
-                <div style="width: 300px; height: auto; border: 3px solid rgb(124, 105, 97); margin-left: 10px;">
+                <div style="width: 300px; height: auto; border: 1px solid rgb(29, 28, 27); margin-left: 10px; border-radius: 15px;">
                 <ul>
                     {% for journal in journals|slice:"1" %}
-                    <a href="{%  url 'journal_equipment' equipment.slug %}" style="width: 250px;">{{ journal.body | truncatewords:2 }}<br>({{ journal.time_create }})</a><br>
+                    <a href="{%  url 'journal_equipment' equipment.slug %}" style="width: 250px; text-decoration: none; color: rgb(116, 27, 27);">{{ journal.body | truncatewords:2 }}<br>({{ journal.time_create }})</a><br>
                     {% endfor %}
                 </ul>
                 </div>
@@ -47,10 +47,10 @@
             <p>Всего комментариев : {{ comments.count }}</p>
             <details>
                 <summary>Последний комментарий</summary>
-                <div style="width: 300px; height: auto; border: 3px solid rgb(124, 105, 97); margin-left: 10px;">
+                <div style="width: 300px; height: auto; border: 1px solid rgb(29, 28, 27); margin-left: 10px; border-radius: 15px;">
                 <ul>
                     {% for comment in comments|slice:"1" %}
-                    <a href="{%  url 'comment_equipment' equipment.slug %}"  style="width: 250px;">{{ comment.body | truncatewords:2 }}<br>({{ comment.time_create }})</a><br>
+                    <a href="{%  url 'comment_equipment' equipment.slug %}"  style="width: 250px; text-decoration: none; color: rgb(116, 27, 27);">{{ comment.body | truncatewords:2 }}<br>({{ comment.time_create }})</a><br>
                     {% endfor %}
                 </ul>
                 </div>

@@ -10,6 +10,8 @@ class User(AbstractUser):
     third_name = models.CharField(max_length=200, verbose_name='отчество')
     job = models.CharField(max_length=200, verbose_name='должность')
     department = models.CharField(max_length=200, null=True, verbose_name='подразделение')
+    telephone = models.CharField(max_length=200, null=True, verbose_name='телефон')
+    photo = models.ImageField(upload_to="avatar/%Y/%m/%d/", default=None, blank=True, null=True, verbose_name='Аватар')
 
     def __str__(self):
         return f'{self.last_name} {self.first_name} {self.third_name}'
