@@ -21,6 +21,9 @@ class User(AbstractUser):
         verbose_name_plural = 'Пользователи'
         ordering = ['first_name']
 
+    def get_absolute_url(self):
+        return reverse('detail_profile', kwargs={'pk': self.pk})    
+
 
 class Category(models.Model):
     title = models.CharField(max_length=200, unique=True, verbose_name='название')

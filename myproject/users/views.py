@@ -235,18 +235,58 @@ def search_profile(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
-            query = form.cleaned_data['query']
-            results = User.objects.filter(last_name__icontains=query)
-            total = results.count()
+            query = form.cleaned_data['query'].split()
+            if len(query) > 1:
+                users = User.objects.filter(last_name__icontains=query[0],
+                                            first_name__icontains=query[1])
+            elif len(query) == 1:
+                users = User.objects.filter(last_name__icontains=query[0])
+            total = users.count()
     else:
         form = SearchForm()       
          
     return render(request,
                 'users/profile_search.html',
                 {'form': form,
-                'posts': results,
+                'users': users,
                 'total': total
                 }) 
+
+
+def profile_search_comments(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Comments.objects.filter(equipment__title__icontains=query)
+            total = results.count()
+    else:
+        form = SearchForm()       
+         
+    return render(request,
+                'users/profile_search_comments.html',
+                {'form': form,
+                'comments': results,
+                'total': total
+                })   
+
+
+def profile_search_journal(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Journal.objects.filter(equipment__title__icontains=query)
+            total = results.count()
+    else:
+        form = SearchForm()       
+         
+    return render(request,
+                'users/profile_search_journals.html',
+                {'form': form,
+                'journal': results,
+                'total': total
+                })  
 
 
 def send_message(request):
@@ -262,3 +302,47 @@ def send_message(request):
                  'title': 'Сообщение успешно отправлено'
                 })   
  
+def profile_message_output(request):
+    user_output_messages = Messages.objects.filter(sender=request.user.pk)
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query'].split()
+            if len(query) > 1:
+                messages = user_output_messages.filter(owner__last_name__icontains=query[0],
+                                            owner__first_name__icontains=query[1])
+            elif len(query) == 1:
+                messages = user_output_messages.filter(owner__last_name__icontains=query[0])
+            total = messages.count()    
+    else:
+        form = SearchForm()       
+         
+    return render(request,
+                'users/profile_search_output_messages.html',
+                {'form': form,
+                'messages': messages,
+                'total': total,
+                }) 
+
+
+def profile_message_input(request):
+    user_output_messages = Messages.objects.filter(owner=request.user.pk)
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query'].split()
+            if len(query) > 1:
+                messages = user_output_messages.filter(sender__last_name__icontains=query[0],
+                                            sender__first_name__icontains=query[1])
+            elif len(query) == 1:
+                messages = user_output_messages.filter(sender__last_name__icontains=query[0])
+            total = messages.count()    
+    else:
+        form = SearchForm()       
+         
+    return render(request,
+                'users/profile_search_input_messages.html',
+                {'form': form,
+                'messages': messages,
+                'total': total,
+                }) 

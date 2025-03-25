@@ -5,8 +5,24 @@
 {% endblock %}
 
 {% block content %}
-
-
+<p class="total_count">Найдено сотрудников: {{ total }}</p>
+{% for user in users %}
+<div class="wrapper_profile">
+    <div class="profile_photo">
+        <div class="avatar">
+            <img  src="{{ user.photo.url }}">
+        </div>
+    </div>
+    <div class="profile_info">
+        <p>Фамилия : {{ user.last_name }}</p> 
+        <p>Имя : {{ user.first_name }}</p> 
+        <p>Отчество : {{ user.third_name}}</p>
+        <p>Должность : {{ user.job}}</p>
+        <p>Подразделение : {{ user.department}}</p>
+        <a href="{% url 'detail_profile' user.pk %}">Просмотреть</a>
+    </div>
+</div>
+{% endfor %}
 
 {%  endblock content %}
 

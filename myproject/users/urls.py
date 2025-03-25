@@ -23,9 +23,13 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile_comments/<int:pk>', views.profile_comments, name='profile_comments'),
     path('profile_journals/<int:pk>', views.profile_journals, name='profile_journals'),
+    path('profile_search_comments/', views.profile_search_comments, name='profile_search_comments'),
+    path('profile_search_journal/', views.profile_search_journal, name='profile_search_journal'),
     path('detail_profile/<int:pk>/', views.detail_profile, name='detail_profile'),
     path('profile_messages_input/<int:pk>', views.profile_messages_input, name='profile_messages_input'),
     path('profile_messages_output/<int:pk>', views.profile_messages_output, name='profile_messages_output'),
+    path('profile_message_output/', views.profile_message_output, name='profile_message_output'),
+    path('profile_message_input/', views.profile_message_input, name='profile_message_input'),
     path('list_profiles/', views.ProfileListView.as_view(), name='list_profiles'),
     path('send_message/', views.send_message, name='send_message'),
 ]

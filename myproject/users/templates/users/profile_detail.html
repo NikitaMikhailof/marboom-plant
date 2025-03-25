@@ -27,7 +27,7 @@
                 {% csrf_token %}
                 <input id="owner" name="owner" type="hidden" value="{{ user.pk }}"/>
                 <input id="sender" name="sender" type="hidden" value="{{ request.user.pk }}"/>
-                <textarea id="body" name="body" type="text" placeholder="Введите сообщение" minlength="5"></textarea><br>
+                <textarea id="body" name="body" type="text" placeholder="Введите сообщение" minlength="5" required></textarea><br>
                 <button  type="submit">Отправить сообщение</button>
             </form>
             {% endif %}
@@ -46,7 +46,6 @@
     <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
 </li>
 {% endif %}
-
         {% for p in paginator.page_range %}
         {% if page_obj.number == p %}
         <li class="page-num page-num-selected">{{ p }}</li>

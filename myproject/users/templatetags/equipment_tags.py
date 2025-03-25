@@ -1,6 +1,5 @@
 from django import template
 from users.models import Category, Tag, Messages, Comments, Journal
-from django.shortcuts import get_object_or_404
 
 register = template.Library()
 
@@ -27,3 +26,11 @@ def get_count_comments(user):
 @register.simple_tag()
 def get_count_journals(user):
     return  Journal.objects.filter(user=user).count()
+
+@register.simple_tag()
+def get_count_all_journals():
+    return  Journal.objects.count()
+
+@register.simple_tag()
+def get_count_all_comments():
+    return  Comments.objects.count()

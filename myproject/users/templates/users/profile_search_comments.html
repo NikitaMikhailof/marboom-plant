@@ -1,17 +1,17 @@
 {% extends 'base_profile.html' %}
 
 {% block search %}    
-{% include "users/includes/search_profile_journal.html" %}    
+{% include "users/includes/search_profile_comment.html" %}    
 {% endblock %}
 
 
-
 {% block content %}
-{% for journal in journals %}
+<p class="total_count">Найдено комментариев: {{ total }}</p>
+{% for comment in comments %}
 <div class="messages_element">
-    <div id="owner"><a href="{%  url 'journal_equipment' journal.equipment.slug %}">{{ journal.equipment.title }}</a></div>
-    <div id="time">{{ journal.time_create }}</div>
-    <div id="body">{{ journal.body }}</div>
+    <div id="owner"><a href="{%  url 'comment_equipment' comment.equipment.slug %}">{{ comment.equipment.title }}</a></div>
+    <div id="time">{{ comment.time_create }}</div>
+    <div id="body">{{ comment.body }}</div>
 </div>   
 {% endfor %}
 {% endblock %}

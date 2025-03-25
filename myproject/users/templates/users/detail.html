@@ -37,7 +37,7 @@
                     {% csrf_token %}
                     <input id="user" name="user" type="hidden" value="{{ request.user.pk }}"/>
                     <input id="equipment" name="equipment" type="hidden" value="{{ equipment.pk }}"/>
-                    <textarea id="body" name="body" type="text" placeholder="Введите описание ремонта" minlength="5"></textarea>
+                    <textarea id="body" name="body" type="text" placeholder="Введите описание ремонта" minlength="5" required></textarea>
                     <button  type="submit">Записать в журнал</button>
                 </form>
             </div><br>  
@@ -63,7 +63,7 @@
                     {% csrf_token %}
                     <input id="user" name="user" type="hidden" value="{{ request.user.pk }}"/>
                     <input id="equipment" name="equipment" type="hidden" value="{{ equipment.pk }}"/>
-                    <textarea id="body" name="body" type="text" placeholder="Введите комментарий" minlength="5"></textarea>
+                    <textarea id="body" name="body" type="text" placeholder="Введите комментарий" minlength="5" required></textarea>
                     <button  type="submit">Оставить комментарий</button>
                 </form>
             </div>

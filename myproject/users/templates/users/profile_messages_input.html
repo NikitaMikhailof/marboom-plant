@@ -1,16 +1,18 @@
 {% extends 'base_profile.html' %}
 
 {% block search %}    
-{% include "users/includes/search_profile.html" %}    
+{% include "users/includes/search_profile_input_messages.html" %}    
 {% endblock %}
 
 
 
 {% block content %}
 {% for message in messages %}
-    <p>{{ message.body }}</p>
-    <p>{{ message.sender }}</p>
-    <p>{{ message.time_create }}</p>
+<div class="messages_element">
+    <div id="owner"><a href="{{ message.sender.get_absolute_url }}">{{ message.sender }}</a></div>
+    <div id="time">{{ message.time_create }}</div>
+    <div id="body">{{ message.body }}</div>
+</div>   
 {% endfor %}
 {% endblock %}
 

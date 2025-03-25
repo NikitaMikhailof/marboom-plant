@@ -1,10 +1,12 @@
 {%  extends 'base.html' %}
+{% load equipment_tags %}
 
 {% block search %}    
 {% include "users/includes/search_journal.html" %}    
 {% endblock %}
 
 {% block content %}
+<p class="total_count">Всего записей: {% get_count_all_journals %}</p>
 <table>
     <caption>Журнал ТО/ТР оборудования</caption>
     <thead>

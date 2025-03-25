@@ -322,7 +322,7 @@ input[type="submit"]:hover {
     padding: 10px;
     margin-top: 50px;
     margin-left: 10px;
-    border: 1px solid rgb(68, 59, 59);
+    background-color: #516654;
     height: auto;
 }
 
@@ -332,16 +332,17 @@ input[type="submit"]:hover {
     text-decoration: none;
     font-family:'Times New Roman', Times, serif;
     font-size: large;
-    color: black;
+    color: white;
 }
 
 .total_count {
+    padding: 5px;
     width: 20%;
-    background-color: rgb(186, 189, 189);
+    height: 20px;
+    border: 2px solid rgb(52, 59, 61);
     margin-top: -10px;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: large;
     text-align: center;
+    border-radius: 15px;
 }
 
 .pagination {
@@ -627,8 +628,9 @@ legend {
 .message_form  textarea {
     width: 400px;
     height: 40px;
-    border: 1px solid rgb(70, 21, 21);
     font-size: large;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .message_form  button {
@@ -650,9 +652,9 @@ legend {
     margin: 20px;
 }
 
-.messages_element  #owner {
+.messages_element  #owner a {
     font-size: medium;
-    color: #1d1342;
+    color: rgb(28, 25, 71)
 }
 
 .messages_element  #time {

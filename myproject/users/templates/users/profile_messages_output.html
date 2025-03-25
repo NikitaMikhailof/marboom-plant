@@ -1,7 +1,7 @@
 {% extends 'base_profile.html' %}
 
 {% block search %}    
-{% include "users/includes/search_profile.html" %}    
+{% include "users/includes/search_profile_output_messages.html" %}    
 {% endblock %}
 
 
@@ -9,7 +9,7 @@
 {% block content %}
 {% for message in messages %}
 <div class="messages_element">
-    <div id="owner">{{ message.owner }}</div>
+    <div id="owner"><a href="{{ message.owner.get_absolute_url }}">{{ message.owner }}</a></div>
     <div id="time">{{ message.time_create }}</div>
     <div id="body">{{ message.body }}</div>
 </div>   

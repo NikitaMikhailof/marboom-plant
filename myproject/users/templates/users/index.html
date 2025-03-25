@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<p class="total_count">Всего позиций: {{ total }} шт</p>
+<p class="total_count">Всего позиций: {{ total }}</p>
 {% for post in posts %}
     <div class="{% cycle 'container-equipment-one' 'container-equipment-two' 'container-equipment-three' %}">
         <p><img class="img-article-left" src="{{post.photo.url}}"></p>
