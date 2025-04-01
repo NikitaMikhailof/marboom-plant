@@ -48,6 +48,9 @@
                 </div><br>
                 <div class="journal_button">
                     <a href="{% url 'comment' %}">Комментарии</a>
+                </div><br>
+                <div class="journal_button">
+                    <a href="{% url 'schema_equipment' %}">Схемы</a>
                 </div>     
             </div>
             <div class="wrapper-content">
@@ -58,8 +61,6 @@
                 {% block pagination %}
                 {% endblock %}
             </div>
-        </div>
-        <div id="footer">
         </div>
     </div>
 </body>

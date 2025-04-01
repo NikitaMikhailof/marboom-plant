@@ -43,7 +43,8 @@
                 <legend>Общее</legend>
                 <a href="{% url 'list_profiles' %}">Сотрудники</a><br><br>
                 <a href="{% url 'journal' %}">Журнал ТО/ТР</a><br><br>
-                <a href="{% url 'comment' %}">Журнал комментариев</a>
+                <a href="{% url 'comment' %}">Журнал комментариев</a><br><br>
+                <a href="{% url 'schema_equipment' %}">Схемы</a>
             </fieldset><br><br>
             {% endblock %}    
             </div>
@@ -55,9 +56,6 @@
                 {% block pagination %}
                 {% endblock %}
             </div>
-        </div>
-        <div id="footer">
-            footer
         </div>
     </div>
 </body>

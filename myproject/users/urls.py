@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views 
 from . import utils
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 
 urlpatterns = [
@@ -18,6 +19,7 @@ urlpatterns = [
     path('post/comment_equipment/<slug:comment_slug>/', views.CommentRecordsEquipment.as_view(), name='comment_equipment'),
     path('journal/', views.JournalListView.as_view(), name='journal'),
     path('comment/', views.CommentListView.as_view(), name='comment'),
+    path('schema_equipment/', views.SchemaEquipmentListView.as_view(), name='schema_equipment'),
     path('journal_record/', views.journal_record, name='journal_record'),
     path('comment_record/', views.comment_record, name='comment_record'),
     path('profile/', views.profile, name='profile'),
@@ -32,4 +34,4 @@ urlpatterns = [
     path('profile_message_input/', views.profile_message_input, name='profile_message_input'),
     path('list_profiles/', views.ProfileListView.as_view(), name='list_profiles'),
     path('send_message/', views.send_message, name='send_message'),
-]
+] + debug_toolbar_urls()

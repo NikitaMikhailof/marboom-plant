@@ -109,3 +109,16 @@ class Journal(models.Model):
         verbose_name_plural = 'Журнал ТО/ТР'
         ordering = ['-time_create'] 
       
+
+class SchemaEquipment(models.Model):
+    title = models.CharField(max_length=200, unique=True, verbose_name='название')
+    schema_image = models.ImageField(upload_to="shema/%Y/%m/%d/", default=None, blank=True, null=True, verbose_name='Схемы')
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
+
+    def __str__(self):
+        return f'{self.title}'
+    
+    class Meta:
+        verbose_name = 'Схема'
+        verbose_name_plural = 'Схемы'
+        ordering = ['-time_create'] 

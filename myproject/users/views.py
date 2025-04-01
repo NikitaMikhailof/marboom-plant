@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from .models import  Equipment, Journal, Comments, User, Messages
+from .models import  Equipment, Journal, Comments, User, Messages, SchemaEquipment
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from .forms import SearchForm, JournalForm, CommentForm, SendMessage
 from django.shortcuts import get_object_or_404
 
@@ -29,12 +30,14 @@ class ProfileListView(LoginRequiredMixin, ListView):
         return User.objects.all()
 
 
+@login_required
 def profile(request):
     return render(request,
                 'users/profile.html',
                 {'title': 'Кабинет пользователя'})  
 
 
+@login_required
 def detail_profile(request, pk):
     user = get_object_or_404(User, pk=pk)
     return render(request,
@@ -42,6 +45,7 @@ def detail_profile(request, pk):
                 {'user': user})   
 
 
+@login_required
 def profile_messages_input(request, pk):
     messages = Messages.objects.filter(owner=pk)
     return render(request,
@@ -49,6 +53,7 @@ def profile_messages_input(request, pk):
                 {'messages': messages})   
 
 
+@login_required
 def profile_messages_output(request, pk):
     messages = Messages.objects.filter(sender=pk)
     return render(request,
@@ -84,6 +89,16 @@ class JournalListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Journal.objects.prefetch_related('equipment').all()
+    
+
+class SchemaEquipmentListView(LoginRequiredMixin, ListView):
+    model = SchemaEquipment 
+    paginate_by = 10 
+    template_name = 'users/schema_equipment.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        return SchemaEquipment.objects.all()    
 
 
 class CommentListView(LoginRequiredMixin, ListView):
@@ -133,6 +148,7 @@ class CommentRecordsEquipment(LoginRequiredMixin, ListView):
         return records
 
 
+@login_required
 def profile_comments(request, pk):
     comments = Comments.objects.filter(user=pk)
     return render(request,
@@ -140,6 +156,7 @@ def profile_comments(request, pk):
                 {'comments': comments}) 
 
 
+@login_required
 def profile_journals(request, pk):
     journals = Journal.objects.filter(user=pk)
     return render(request,
@@ -147,6 +164,7 @@ def profile_journals(request, pk):
                 {'journals': journals}) 
 
 
+@login_required
 def journal_record(request):
     if request.method == 'POST':
         form = JournalForm(request.POST)
@@ -162,6 +180,7 @@ def journal_record(request):
                 })   
 
 
+@login_required
 def comment_record(request):
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -177,6 +196,7 @@ def comment_record(request):
                 })   
 
 
+@login_required
 def search_equipment(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
@@ -195,6 +215,7 @@ def search_equipment(request):
                 })        
 
 
+@login_required
 def search_journal(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
@@ -213,6 +234,7 @@ def search_journal(request):
                 })  
 
 
+@login_required
 def search_comment(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
@@ -231,6 +253,7 @@ def search_comment(request):
                 })  
 
 
+@login_required
 def search_profile(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
@@ -253,6 +276,7 @@ def search_profile(request):
                 }) 
 
 
+@login_required
 def profile_search_comments(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
@@ -271,6 +295,7 @@ def profile_search_comments(request):
                 })   
 
 
+@login_required
 def profile_search_journal(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
@@ -289,6 +314,7 @@ def profile_search_journal(request):
                 })  
 
 
+@login_required
 def send_message(request):
     if request.method == 'POST':
         form = SendMessage(request.POST)
@@ -302,6 +328,8 @@ def send_message(request):
                  'title': 'Сообщение успешно отправлено'
                 })   
  
+
+@login_required
 def profile_message_output(request):
     user_output_messages = Messages.objects.filter(sender=request.user.pk)
     if request.method == 'POST':
@@ -325,6 +353,7 @@ def profile_message_output(request):
                 }) 
 
 
+@login_required
 def profile_message_input(request):
     user_output_messages = Messages.objects.filter(owner=request.user.pk)
     if request.method == 'POST':
