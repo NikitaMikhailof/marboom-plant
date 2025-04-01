@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-6ei)kml6hqy_e+*h4c+k2oa&g7=20hzd9k*78xd(p_s-v*(spf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['marbum.site','127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
